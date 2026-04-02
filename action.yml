@@ -1,0 +1,21 @@
+name: 'Secret Lite'
+description: 'Analyzes PR diffs to detect for secrets like credentials, API Key, etc.'
+author: 'mitigation-dot-team'
+
+inputs:
+  github-token:
+    description: 'GitHub token with permissions to read PR diffs and post comments'
+    required: true
+    default: ${{ github.token }}
+
+outputs:
+  violations:
+    description: 'JSON array of detected route violations'
+
+runs:
+  using: 'node20'
+  main: './'
+
+branding:
+  icon: 'shield'
+  color: 'red'
