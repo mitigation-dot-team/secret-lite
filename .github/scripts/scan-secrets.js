@@ -243,6 +243,7 @@ async function main() {
 
   if (findings.length === 0) {
     console.log('✅ No secrets detected in this PR.');
+    await postComment(repo, parseInt(prNumber, 10), 'No secrets detected in this PR.', token);
     return;
   }
 
