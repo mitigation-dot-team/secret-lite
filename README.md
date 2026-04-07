@@ -1,8 +1,6 @@
-# secret-lite
+🛡️ SecretLite — PR Secrets Analysis GitHub Action
 
-## Goal
-
-**secret-lite** is a GitHub Action that automatically scans pull request diffs to detect accidentally committed secrets such as credentials, API keys, tokens, and other sensitive data.
+Automatically scans pull request diffs to detect accidentally committed secrets such as credentials, API keys, tokens, and other sensitive data.
 
 By running as part of your CI pipeline, it intercepts secrets before they are merged into the main branch, reducing the risk of sensitive information being exposed in your repository history.
 
