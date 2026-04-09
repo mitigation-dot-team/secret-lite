@@ -238,20 +238,6 @@ async function main() {
     process.exit(1);
   }
 
-  const diffContent = fs.readFileSync(diffFile, 'utf8');
-  const findings = scanDiff(diffContent);
-
-  if (findings.length === 0) {
-    console.log('✅ No secrets detected in this PR.');
-    await postComment(repo, parseInt(prNumber, 10), 'No secrets detected in this PR.', token);
-    return;
-  }
-
-  console.log(`⚠️  ${findings.length} potential secret(s) detected:`);
-  for (const f of findings) {
-    console.log(`  [${f.rule}] ${f.file}:${f.line} — ${f.message}`);
-  }
-
   const token = process.env.GITHUB_TOKEN;
   const prNumber = process.env.PR_NUMBER;
   const repo = process.env.REPO;
@@ -261,7 +247,20 @@ async function main() {
     process.exit(1);
   }
 
-  const comment = buildComment(findings);
+  const diffContent = fs.readFileSync(diffFile, 'utf8');
+  const findings = scanDiff(diffContent);
+
+  let comment;
+  if (findings.length === 0) {
+    console.log('✅ No secrets detected in this PR.');
+    comment = '✅ No secrets detected in this pull request.';
+  } else {
+    console.log(`⚠️  ${findings.length} potential secret(s) detected:`);
+    for (const f of findings) {
+      console.log(`  [${f.rule}] ${f.file}:${f.line} — ${f.message}`);
+    }
+    comment = buildComment(findings);
+  }
 
   try {
     await postComment(repo, parseInt(prNumber, 10), comment, token);
