@@ -4,7 +4,7 @@ author: 'mitigation-dot-team'
 
 inputs:
   github-token:
-    description: 'GitHub token with permissions to read PR diffs and post comments'
+    description: 'GitHub token with permissions to read PR diffs and post comments.'
     required: true
     default: ${{ github.token }}
 
@@ -13,7 +13,7 @@ outputs:
     description: 'JSON array of detected route violations'
 
 runs:
-  using: 'node20'
+  using: 'node24'
   main: './index.js'
 
 branding:
